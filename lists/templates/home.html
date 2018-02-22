@@ -1,11 +1,15 @@
 <body>
     <h1>List</h1>
     <form method="POST">
-        <input name="text" id="id_new_item" placeholder="Type something">
+        <input name="text" id="text" placeholder="Type something">
         {% csrf_token %}
     </form>
 
-    <table id="id_list_table">
-        <tr><td>{{ text }}</td></tr>
+    <table id="list-table">
+        {% for item in item_list %}
+            <tr>
+                <td>{{ item.text }}</td>
+            </tr>
+        {% endfor %}
     </table>
 </body>
