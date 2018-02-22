@@ -1,0 +1,11 @@
+<body>
+    <h1>List</h1>
+    <form method="POST">
+        <input name="text" id="id_new_item" placeholder="Type something">
+        {% csrf_token %}
+    </form>
+
+    <table id="id_list_table">
+        <tr><td>{{ text }}</td></tr>
+    </table>
+</body>
