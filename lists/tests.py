@@ -1,19 +1,12 @@
-from django.http import HttpRequest
 from django.test import TestCase
-from django.urls import resolve
-from lists.views import home_page
 
 
 class HomePageTests(TestCase):
 
-    def test_root_url_resolves_to_homepage(self):
-        found = resolve('/')
-        self.assertEquals(found.func, home_page)
+    def test_uses_home_template(self):
+        response = self.client.get('/')
+        self.assertTemplateUsed(response, 'home.html')
 
-    def test_homepage_correct_html(self):
-        request = HttpRequest()
-        response = home_page(request)
-        html = response.content.decode('utf8')
-        self.assertTrue(html.startswith('<html>'))
-        self.assertIn('<title>Lists</title>', html)
-        self.assertTrue(html.endswith('</html>'))
+    def test_can_save_post_request(self):
+        response = self.client.post('/', data={'text': 'New'})
+        self.assertIn('New', response.content.decode())
